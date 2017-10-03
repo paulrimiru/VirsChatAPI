@@ -15,7 +15,7 @@ class UserApiTest(ApiTestCase):
     def test_registration(self):
         response = self.app.post('/api/v1/user', data=self.user_data)
         data = json.loads(response.data)
-
+        
         assert data['id'] == 1
         assert len(data['token']) > 10
 

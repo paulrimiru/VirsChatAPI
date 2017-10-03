@@ -1,10 +1,10 @@
 import json
 
-from app import db
+from app import db, app
 from app.utils.testing import ApiTestCase
 from app.users.models import PasswordReset
 
-
+import unittest
 class UserApiTest(ApiTestCase):
 
     user_data = {
@@ -64,3 +64,4 @@ class UserApiTest(ApiTestCase):
             'password': 'abc123'
         })
         assert response.status_code == 200
+        

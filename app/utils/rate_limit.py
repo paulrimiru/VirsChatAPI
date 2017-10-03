@@ -6,7 +6,6 @@ from time import time
 from app import app, redis
 from app.utils.errors import TOO_MANY_REQUESTS
 
-
 def rate_limit(limit=100, window=60):
     def decorator(func):
         @wraps(func)

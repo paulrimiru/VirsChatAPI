@@ -11,16 +11,15 @@ from app.users.models import AppUser, PasswordReset
 from app.utils.auth import auth_required, admin_required, generate_token
 from app.utils.errors import EMAIL_IN_USE, CODE_NOT_VALID, BAD_CREDENTIALS
 
-from app import db, bcrypt, app
-
+from app import db, bcrypt
+from flask_restful import Resource
 
 user_fields = {
     'id': fields.Integer,
     'email': fields.String
 }
 
-@app.route('/api/v1/user')
-class UserAPI(SignupLoginMixin):
+class UserAPI(SignupLoginMixin, Resource):
 
     @auth_required
     @marshal_with(user_fields)
@@ -43,8 +42,7 @@ class UserAPI(SignupLoginMixin):
             'token': generate_token(user)
         }, 201
 
-@app.route('/api/v1/authenticate')
-class AuthenticationAPI(SignupLoginMixin):
+class AuthenticationAPI(SignupLoginMixin, Resource):
 
     def post(self):
         args = self.req_parser.parse_args()
@@ -59,8 +57,7 @@ class AuthenticationAPI(SignupLoginMixin):
 
         return BAD_CREDENTIALS
 
-@app.route('/api/v1/password-reset/request')
-class PasswordResetRequestAPI():
+class PasswordResetRequestAPI(Resource):
 
     def post(self):
         req_parser = reqparse.RequestParser()
@@ -76,8 +73,7 @@ class PasswordResetRequestAPI():
 
         return {}, 201
 
-@app.route('/api/v1/password-reset/confirm')
-class PasswordResetConfirmAPI():
+class PasswordResetConfirmAPI(Resource):
 
     def post(self):
         req_parser = reqparse.RequestParser()
@@ -99,8 +95,7 @@ class PasswordResetConfirmAPI():
         return {}, 200
 
 
-@app.route('/api/v1/admin')
-class AdminOnlyAPI():
+class AdminOnlyAPI(Resource):
 
     @admin_required
     def get(self):

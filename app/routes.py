@@ -1,4 +1,4 @@
-from app import rest_api
+from app import api as rest_api
 
 from app.users import api as users_api
 

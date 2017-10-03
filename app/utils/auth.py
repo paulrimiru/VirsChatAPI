@@ -10,7 +10,6 @@ from app.utils.errors import UNAUTHORIZED, FORBIDDEN
 
 TWO_WEEKS = 1209600
 
-
 def generate_token(user, expiration=TWO_WEEKS):
     s = Serializer(app.config['SECRET_KEY'], expires_in=expiration)
     return s.dumps({
