@@ -6,8 +6,8 @@ class Config(object):
     """Parent configuration class."""
     DEBUG = False
     CSRF_ENABLED = True
-    SECRET = os.getenv('SECRET')
-    SQLALCHEMY_DATABASE_URI = os.getenv('DATABASE_URL')
+    SECRET = '15d4f6dsf5g4sds8fg44df54gs64fg89s'
+    SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://mike:10131994@localhost/virs_db'
     
 
 class DevelopmentConfig(Config):

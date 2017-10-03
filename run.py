@@ -1,9 +1,11 @@
-import os
+from flask_failsafe import failsafe
 
-from app import create_app
 
-config_name = os.getenv('APP_SETTINGS') # config_name = "development"
-APP = create_app(config_name)
+@failsafe
+def create_app():
+    from app import manager
+    return manager
+
 
 if __name__ == '__main__':
-    APP.run(host='0.0.0.0')
+    create_app().run()
