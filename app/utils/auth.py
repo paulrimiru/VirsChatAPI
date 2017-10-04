@@ -6,12 +6,13 @@ from itsdangerous import SignatureExpired, BadSignature
 
 from app import app
 from app.utils.errors import UNAUTHORIZED, FORBIDDEN
-
+from instance.config import app_config
 
 TWO_WEEKS = 1209600
 
+
 def generate_token(user, expiration=TWO_WEEKS):
-    s = Serializer(app.config['SECRET_KEY'], expires_in=expiration)
+    s = Serializer(app_config['SECRET_KEY'], expires_in=expiration)
     return s.dumps({
         'id': user.id,
         'email': user.email,
@@ -20,7 +21,7 @@ def generate_token(user, expiration=TWO_WEEKS):
 
 
 def verify_token(token):
-    s = Serializer(app.config['SECRET_KEY'])
+    s = Serializer(app_config['SECRET_KEY'])
     try:
         data = s.loads(token)
     except (SignatureExpired, BadSignature):

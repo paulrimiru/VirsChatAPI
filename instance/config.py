@@ -6,16 +6,20 @@ class Config(object):
     """Parent configuration class."""
     DEBUG = False
     CSRF_ENABLED = True
-    SECRET = '15d4f6dsf5g4sds8fg44df54gs64fg89s'
+    SECRET = 'secret'
     SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://mike:10131994@localhost/virs_db'
     
 
 class DevelopmentConfig(Config):
     """Configurations for Development."""
+    CSRF_ENABLED = True
+    SECRET = 'secret'
     DEBUG = True
 
 class TestingConfig(Config):
     """Configurations for Testing, with a separate test database."""
+    CSRF_ENABLED = True
+    SECRET = 'secret'
     TESTING = True
     SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://mike:10131994@localhost/test_db'
     DEBUG = True
@@ -34,4 +38,5 @@ app_config = {
     'testing': TestingConfig,
     'staging': StagingConfig,
     'production': ProductionConfig,
+    'SECRET_KEY':'secret_key'
 }

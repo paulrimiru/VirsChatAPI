@@ -6,8 +6,7 @@ from instance.config import app_config
 
 class ApiTestCase(unittest.TestCase):
     
-    def setUp(self):
-        app.config.from_object(app_config['testing'])
+    def setUp(self):        
         self.app = app.test_client()
         db.create_all()
 

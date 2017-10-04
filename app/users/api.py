@@ -19,6 +19,12 @@ user_fields = {
     'email': fields.String
 }
 
+class VirsChatHome(Resource):
+    def get(self):
+        return {
+            'response':'Hey welcome to virschat'
+            }, 201
+
 class UserAPI(SignupLoginMixin, Resource):
 
     @auth_required
@@ -69,7 +75,7 @@ class PasswordResetRequestAPI(Resource):
             password_reset = PasswordReset(user=user)
             db.session.add(password_reset)
             db.session.commit()
-            # TODO: Send the email using any preferred method
+            #send email
 
         return {}, 201
 
