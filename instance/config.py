@@ -15,7 +15,7 @@ class DevelopmentConfig(Config):
     CSRF_ENABLED = True
     SECRET = 'secret'
     DEBUG = True
-
+    SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL')
 class TestingConfig(Config):
     """Configurations for Testing, with a separate test database."""
     CSRF_ENABLED = True
