@@ -7,7 +7,7 @@ class Config(object):
     DEBUG = False
     CSRF_ENABLED = True
     SECRET = 'secret'
-    SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://mike:10131994@localhost/virs_db'
+    SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL','postgresql+psycopg2://mike:10131994@localhost/virs_db')
     
 
 class DevelopmentConfig(Config):
