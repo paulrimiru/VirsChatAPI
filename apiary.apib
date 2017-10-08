@@ -1,0 +1,39 @@
+FORMAT: 1A
+HOST: http://polls.apiblueprint.org/
+
+# VirsChat
+
+Virscom chat app user registration 
+
+## Virschat endpoint collection [/]
+
+### VirsChat home [GET]
+
++ Response 200 (application/json)
+
+        [
+            {
+                {'Response':'Hey welcome to VirsChat'}
+                
+            }
+        ]
+
+### Register [POST]
+
++ Request (application/api/v1/user)
+
+        {
+            "username": "admin something",
+            "usertype": "admin",
+            "email": "something@email.com",
+            "password": "123456"
+        }
+
++ Response 201 (application/json)
+
+    + Body
+
+            {
+                "id": "user.id",
+                "token": "user.token"
+            }
