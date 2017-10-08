@@ -16,7 +16,7 @@ class UserApiTest(ApiTestCase):
 
     def test_registration(self):
         response = self.app.post('/api/v1/user', data=self.user_data)
-        data = json.loads(response.data)
+        data = json.loads(response.data.decode('utf-8'))
 
         assert data['id'] == 1
         assert len(data['token']) > 10
@@ -30,11 +30,11 @@ class UserApiTest(ApiTestCase):
 
     def test_get_user(self):
         response = self.app.post('/api/v1/user', data=self.user_data)
-        data = json.loads(response.data)
+        data = json.loads(response.data.decode('utf-8'))
         headers = {'Authorization': data['token']}
 
         response = self.app.get('/api/v1/user', headers=headers)
-        data = json.loads(response.data)
+        data = json.loads(response.data.decode('utf-8'))
         assert data['email'] == 'something@email.com'
 
     def test_password_reset(self):
@@ -64,6 +64,5 @@ class UserApiTest(ApiTestCase):
             'email': 'something@email.com',
             'password': 'abc123'
         })
-        print(response.status_code)
         assert response.status_code == 200
         
