@@ -6,6 +6,8 @@ from flask_script import Manager
 from flask_api import FlaskAPI
 from flask_restful import Api
 from flask_redis import FlaskRedis
+from flask_heroku import Heroku
+
 from instance.config import app_config
 
 
@@ -22,6 +24,7 @@ migrate = Migrate(app)
 api = Api(app)
 redis = FlaskRedis(app)
 manager = Manager(app)
+heroku = Heroku(app)
 
 manager.add_command('db', MigrateCommand)
 
