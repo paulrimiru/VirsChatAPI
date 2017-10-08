@@ -8,6 +8,8 @@ import unittest
 class UserApiTest(ApiTestCase):
 
     user_data = {
+        'username': 'admin something',
+        'usertype': 'admin',
         'email': 'something@email.com',
         'password': '123456',
     }
@@ -29,7 +31,6 @@ class UserApiTest(ApiTestCase):
     def test_get_user(self):
         response = self.app.post('/api/v1/user', data=self.user_data)
         data = json.loads(response.data)
-
         headers = {'Authorization': data['token']}
 
         response = self.app.get('/api/v1/user', headers=headers)
@@ -63,5 +64,6 @@ class UserApiTest(ApiTestCase):
             'email': 'something@email.com',
             'password': 'abc123'
         })
+        print(response.status_code)
         assert response.status_code == 200
         

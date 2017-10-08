@@ -5,7 +5,7 @@ from flask_restful import reqparse, fields, marshal_with
 from sqlalchemy.exc import IntegrityError
 
 
-from app.users.mixins import SignupLoginMixin
+from app.users.mixins import SignupMixin, SignInMixin
 from app.users.models import AppUser, PasswordReset
 
 from app.utils.auth import auth_required, admin_required, generate_token
@@ -25,7 +25,7 @@ class VirsChatHome(Resource):
             'response':'Hey welcome to virschat'
             }, 201
 
-class UserAPI(SignupLoginMixin, Resource):
+class UserAPI(SignupMixin, Resource):
 
     @auth_required
     @marshal_with(user_fields)
@@ -35,7 +35,8 @@ class UserAPI(SignupLoginMixin, Resource):
     def post(self):
         args = self.req_parser.parse_args()
 
-        user = AppUser(email=args['email'], password=args['password'])
+        user = AppUser(username=args['username'], usertype=args['usertype'], 
+                       email=args['email'], password=args['password'])
         db.session.add(user)
 
         try:
@@ -45,21 +46,21 @@ class UserAPI(SignupLoginMixin, Resource):
 
         return {
             'id': user.id,
-            'token': generate_token(user)
+            'token': generate_token(user).decode('UTF-8')
         }, 201
 
-class AuthenticationAPI(SignupLoginMixin, Resource):
+class AuthenticationAPI(SignInMixin, Resource):
 
     def post(self):
         args = self.req_parser.parse_args()
 
-        user = db.session.query(AppUser).filter(AppUser.email==args['email']).first()
+        user = db.session.query(AppUser).filter(AppUser.email == args['email']).first()
         if user and bcrypt.check_password_hash(user.password, args['password']):
 
             return {
                 'id': user.id,
-                'token': generate_token(user)
-            }
+                'token': generate_token(user).decode('UTF-8')
+            }, 200
 
         return BAD_CREDENTIALS
 

@@ -38,5 +38,6 @@ app_config = {
     'testing': TestingConfig,
     'staging': StagingConfig,
     'production': ProductionConfig,
+    'configobj':Config,
     'SECRET_KEY':'secret_key'
 }

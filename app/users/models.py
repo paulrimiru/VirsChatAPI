@@ -12,18 +12,22 @@ class AppUser(db.Model):
 
     id = db.Column(db.Integer(), primary_key=True)
     email = db.Column(db.String(255), unique=True)
+    username = db.Column(db.String(255))
+    usertype = db.Column(db.String(255))
     password = db.Column(db.String(255))
     active = db.Column(db.Boolean())
     is_admin = db.Column(db.Boolean())
 
-    def __init__(self, email, password, is_admin=False):
+    def __init__(self, username, usertype, email, password, is_admin=False):
+        self.username = username
+        self.usertype = usertype
         self.email = email
         self.active = True
         self.is_admin = is_admin
         self.set_password(password)
 
     def set_password(self, password):
-        self.password = bcrypt.generate_password_hash(password)
+        self.password = bcrypt.generate_password_hash(password).decode('utf-8')
 
     def deactivate(self):
         self.active = False
