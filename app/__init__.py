@@ -15,8 +15,7 @@ configobj = 'production'
 app = FlaskAPI(__name__, instance_relative_config=True)
 app.config.from_object(app_config[configobj])
 app.config.from_pyfile('config.py')
-app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql+psycopg2://mike:10131994@localhost/virs_db'
+
 
 db = SQLAlchemy(app)
 bcrypt = Bcrypt(app)
