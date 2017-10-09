@@ -11,7 +11,7 @@ from flask_heroku import Heroku
 from instance.config import app_config
 
 
-configobj = 'development'
+configobj = 'production'
 app = FlaskAPI(__name__, instance_relative_config=True)
 app.config.from_object(app_config[configobj])
 app.config.from_pyfile('config.py')
